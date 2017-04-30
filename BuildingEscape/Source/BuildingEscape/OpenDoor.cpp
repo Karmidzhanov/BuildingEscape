@@ -20,15 +20,25 @@ void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	AActor *Owner = GetOwner();	
+	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
+}
 
-	FRotator NewRotation = FRotator(0.f,-60.f,0.f);
+void UOpenDoor::OpenDoor()
+{
+	//Find the owning Actor
+	AActor *Owner = GetOwner();
+
+	//Create a rotator
+	FRotator NewRotation = FRotator(0.f, -60.f, 0.f);
+
+	//Set the door rotation
 	Owner->SetActorRotation(NewRotation);
 
+	/*
 	FRotator ObjectRot = Owner->GetActorRotation();
 	float DoorYaw = ObjectRot.Yaw;
 	UE_LOG(LogTemp, Warning, TEXT("The door is rotated at %f degrees"), DoorYaw);
-	
+	*/
 }
 
 
@@ -36,6 +46,13 @@ void UOpenDoor::BeginPlay()
 void UOpenDoor::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
+
+	//Poll the Trigger Volume
+	//If the ActorThatOpens i in the volume
+	if (PressurePlate->IsOverlappingActor(ActorThatOpens))
+	{
+		OpenDoor();
+	}
 	
 }
 
