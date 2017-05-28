@@ -18,10 +18,7 @@ UGrabber::UGrabber()
 void UGrabber::BeginPlay()
 {
 	Super::BeginPlay();
-
-
-
-
+	//test
 	UE_LOG(LogTemp, Warning, TEXT("Grabber reporting for duty!"));
 
 }
@@ -45,7 +42,6 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 		*PlayerViewPointLocation.ToString(), 
 		*PlayerViewPointRotation.ToString()
 	);
-
 
 	//Ray-cast out to reach distance
 
