@@ -1,7 +1,7 @@
 #include "BuildingEscape.h"
 #include "Grabber.h"
 
-#define OUT
+#define OUT   //empty macro to flag the out parameters of GetPlayerViewPoint
 
 // Sets default values for this component's properties
 UGrabber::UGrabber()
@@ -28,20 +28,34 @@ void UGrabber::BeginPlay()
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	
+
 	//Get player viewpoint at this tick
 	FVector PlayerViewPointLocation;
 	FRotator PlayerViewPointRotation;
 	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
-		 OUT PlayerViewPointLocation,
-		 OUT PlayerViewPointRotation
+		OUT PlayerViewPointLocation,
+		OUT PlayerViewPointRotation
 	);
-	
+
 	//log out to test
-	UE_LOG(LogTemp, Warning, TEXT("Location = %s, Rotation = %s"), 
-		*PlayerViewPointLocation.ToString(), 
+	/*UE_LOG(LogTemp, Warning, TEXT("Location = %s, Rotation = %s"),
+		*PlayerViewPointLocation.ToString(),
 		*PlayerViewPointRotation.ToString()
+	);*/
+
+	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
+	DrawDebugLine(
+		GetWorld(),
+		PlayerViewPointLocation,
+		LineTraceEnd,
+		FColor(255, 0, 0),
+		false,
+		0.f,
+		0.f,
+		10.f
 	);
+
+	//draw a red trace in the world to visualize
 
 	//Ray-cast out to reach distance
 
