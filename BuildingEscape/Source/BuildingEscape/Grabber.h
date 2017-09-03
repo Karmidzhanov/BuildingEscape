@@ -18,6 +18,7 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -29,6 +30,9 @@ private:
 
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 	UInputComponent* InputComponent = nullptr;
+
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewPointRotation;
 
 	//Ray-cast and grab what's in reach
 	void Grab();
@@ -45,5 +49,8 @@ private:
 	//Return hit for first physiscs body in reach
 
 	const FHitResult GetFirstPhysicsBodyInreach();
+
+	FVector GetLineTraceStart();
+	FVector GetLineTraceEnd();
 	
 };

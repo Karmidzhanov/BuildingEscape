@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "4.15",
+	"EngineAssociation": "4.14",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -11,28 +11,6 @@
 			"AdditionalDependencies": [
 				"Engine"
 			]
-		}
-	],
-	"Plugins": [
-		{
-			"Name": "GearVR",
-			"Enabled": false
-		},
-		{
-			"Name": "OculusInput",
-			"Enabled": false
-		},
-		{
-			"Name": "OculusLibrary",
-			"Enabled": false
-		},
-		{
-			"Name": "OculusRift",
-			"Enabled": false
-		},
-		{
-			"Name": "SteamVR",
-			"Enabled": false
 		}
 	]
 }
