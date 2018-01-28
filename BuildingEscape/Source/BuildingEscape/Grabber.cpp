@@ -50,7 +50,7 @@ void UGrabber::Grab()
 	//If we hit something then attach a physiscs handle
 	if (ActorHit)
 	{
-		//atach physiscs handle
+		if (!PhysicsHandle) { return; }
 		PhysicsHandle->GrabComponent(
 			ComponentToGrab,
 			NAME_None,  //no bones needed
@@ -63,6 +63,7 @@ void UGrabber::Grab()
 //release physics handle
 void UGrabber::Release()
 {
+	if (!PhysicsHandle) { return; }
 	PhysicsHandle->ReleaseComponent();
 }
 //Called every frame
@@ -70,6 +71,7 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	
+	if (!PhysicsHandle) { return; }
 	// if the physiscs handle is attached
 	if (PhysicsHandle->GrabbedComponent)
 	{
@@ -100,7 +102,7 @@ FVector UGrabber::GetLineTraceEnd()
 const FHitResult UGrabber::GetFirstPhysicsBodyInreach()
 {	
 	///Set up query paramaters
-	FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
+	FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());	
 
 	///Line-trace (AKA Ray-cast) out to reach distance
 	FHitResult HitResult;
